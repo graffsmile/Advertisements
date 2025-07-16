@@ -1,4 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+dotenv_path = '.env'
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "123")
 POSTGRES_USER = os.getenv("POSTGRES_USER", "user")
