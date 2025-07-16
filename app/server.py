@@ -37,14 +37,14 @@ async def get_user(session: SessionDependency, user_id: int):
 @app.get("/api/v1/user?{query_string}", response_model=SearchUserResponse, tags=["user"])
 async def search_user(
         session: SessionDependency,
-        name: str,
+        name: str | None = None,
         ):
     query_string = (
         select(models.User)
         .where(models.User.name == name)
         .limit(10000)
     )
-    users = await session.scalar(query_string)
+    users = await session.scalars(query_string)
     return {"results": [user.dict for user in users]}
 
 
@@ -99,7 +99,7 @@ async def search_adverts(
         )
     )
 
-    adverts = await session.scalar(query_string)
+    adverts = await session.scalars(query_string)
     return {"results": [advert.dict for advert in adverts]}
 
 
