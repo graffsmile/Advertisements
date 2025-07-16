@@ -44,7 +44,7 @@ async def search_user(
         .where(models.User.name == name)
         .limit(10000)
     )
-    users = await session.scalars(query_string)
+    users = await session.scalar(query_string)
     return {"results": [user.dict for user in users]}
 
 
