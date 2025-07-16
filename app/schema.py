@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from typing import Literal
 
 from pydantic import BaseModel
@@ -13,6 +14,7 @@ class SuccessResponse(BaseModel):
 class CreateUserRequest(BaseModel):
     name: str
     password: str
+    role: str
 
 class UpdateUserRequest(BaseModel):
     name: str | None = None
@@ -40,7 +42,7 @@ class CreateAdvertRequest(BaseModel):
     title: str
     description: str
     price: int
-    author_id: int
+
 
 class UpdateAdvertRequest(BaseModel):
     title: str | None = None
@@ -67,3 +69,11 @@ class SearchAdvertResponse(BaseModel):
 
 class DeleteAdvertResponse(SuccessResponse):
     pass
+
+
+
+class LoginRequest(CreateUserRequest):
+    pass
+
+class LoginResponse(BaseModel):
+    token: uuid.UUID
