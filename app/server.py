@@ -99,63 +99,8 @@ async def search_adverts(
         )
     )
 
-    adverts = await session.scalars(query_string)
+    adverts = await session.scalar(query_string)
     return {"results": [advert.dict for advert in adverts]}
-""" Response:
-200
-{'results': []}
-"""
-
-# @app.get("/api/v1/advertisement?{query_string}", response_model=SearchAdvertResponse, tags=["advertisement"])
-# async def search_adverts(
-#         session: SessionDependency,
-#         title: str | None = None,
-#         description: str | None = None,
-#         price: int | None = None,
-#         author_id: int | None = None,
-#         ):
-#     query_string = (
-#         select(models.Adverts).where(
-#             models.Adverts.title == title,
-#             models.Adverts.description == description,
-#             models.Adverts.price == price,
-#             models.Adverts.author_id == author_id,
-#         )
-#     )
-#
-#     adverts = await session.scalars(query_string)
-#     return {"results": [advert.dict for advert in adverts]}
-"""
-Response:
-405
-{'detail': 'Method Not Allowed'}
-"""
-
-
-# @app.get("/api/v1/advertisement", response_model=SearchAdvertResponse, tags=["advertisement"])
-# async def search_adverts(
-#         session: SessionDependency,
-#         title: str | None = None,
-#         description: str | None = None,
-#         price: int | None = None,
-#         author_id: int | None = None,
-# ):
-#     query_string = {}
-#     if title:
-#         query_string["title"] = title
-#     if description:
-#         query_string["description"] = description
-#     if price:
-#         query_string["price"] = price
-#     if author_id:
-#         query_string["author_id"] = author_id
-#     advertisement_orm_obj = await crud.get_advert_by_qs(session, models.Adverts, **query_string)
-#     result = [advert.dict for advert in advertisement_orm_obj.scalars().all()]
-#     return result
-"""
-Response:
-500
-"""
 
 
 @app.patch("/api/v1/advertisement/{advert_id}", response_model=UpdateAdvertResponse)
